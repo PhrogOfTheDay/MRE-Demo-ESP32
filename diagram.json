@@ -1,0 +1,101 @@
+{
+    "version": 1,
+    "author": "panggon buku",
+    "editor": "wokwi",
+    "parts": [
+        {
+            "type": "wokwi-esp32-devkit-v1",
+            "id": "esp",
+            "top": 14.3,
+            "left": 100.6,
+            "attrs": {}
+        },
+        {
+            "type": "wokwi-74hc165",
+            "id": "sr1",
+            "top": -97.2,
+            "left": -13.76,
+            "attrs": {}
+        },
+        {
+            "type": "wokwi-slide-switch",
+            "id": "sw1",
+            "top": -197.2,
+            "left": 12.7,
+            "attrs": {}
+        }
+    ],
+    "connections": [
+        [
+            "esp:TX0",
+            "$serialMonitor:RX",
+            "",
+            []
+        ],
+        [
+            "esp:RX0",
+            "$serialMonitor:TX",
+            "",
+            []
+        ],
+        [
+            "esp:D18",
+            "sr1:PL",
+            "limegreen",
+            [
+                "h0"
+            ]
+        ],
+        [
+            "sr1:CP",
+            "esp:D19",
+            "orange",
+            [
+                "v0"
+            ]
+        ],
+        [
+            "sr1:CE",
+            "esp:D21",
+            "violet",
+            [
+                "h-67.2",
+                "v174.4"
+            ]
+        ],
+        [
+            "sr1:DS",
+            "esp:D22",
+            "green",
+            [
+                "v0"
+            ]
+        ],
+        [
+            "sr1:GND",
+            "esp:GND.2",
+            "black",
+            [
+                "v0"
+            ]
+        ],
+        [
+            "sw1:3",
+            "sr1:D0",
+            "green",
+            [
+                "v0"
+            ]
+        ],
+        [
+            "sw1:2",
+            "esp:GND.2",
+            "black",
+            [
+                "h-105.5",
+                "v326.5"
+            ]
+        ]
+    ],
+    "dependencies": {}
+}
