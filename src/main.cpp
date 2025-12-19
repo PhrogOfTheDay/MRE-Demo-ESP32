@@ -1,6 +1,8 @@
 #include <Neza74HC165.h>
 #include <Arduino.h>
 #include <vector>
+#include "ShiftIn.h"
+
 /*
 #include <Adafruit_NeoPixel.h>
 
@@ -16,6 +18,7 @@ int DATA = 22;
 const int numOfRegisters = 1;
 
 const int numBits = numOfRegisters * 8;
+ShiftIn<1> shift;
 
 Neza74HC165<numOfRegisters> shiftRegs;
 std::vector<int> prevRegState;
@@ -51,10 +54,11 @@ void setup()
 {
   Serial.begin(115200);
   shiftRegs.begin(DATA, PL, CLK_CP);
+  shift.begin(PL, CE, DATA, CLK_CP);
 
-  prevRegState = getCurrentStates();
-  // strip.begin();
-  // strip.show();
+  // prevRegState = getCurrentStates();
+  //  strip.begin();
+  //  strip.show();
 }
 
 bool detectUpdate()
@@ -68,6 +72,14 @@ bool detectUpdate()
   return false;
 }
 
+void displayValues()
+{
+  // print out all 8 buttons
+  for (int i = 0; i < shift.getDataWidth(); i++)
+    Serial.print(shift.state(i)); // get state of button i
+  Serial.println();
+}
+
 void loop()
 {
   /*
@@ -76,7 +88,13 @@ void loop()
     Serial.println("State changed!");
     turnOnOrOffLED(prevRegState.back());
   }*/
-  getCurrentStates();
+  /*getCurrentStates();
   Serial.println("");
-  delay(3000);
+  delay(3000);*/
+  if (shift.update())
+  {
+    Serial.println("I got hit");
+    displayValues();
+  }
+  delay(1);
 }
